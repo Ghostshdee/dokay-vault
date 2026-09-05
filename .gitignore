@@ -1,4 +1,4 @@
-﻿# Obsidian-ы дотоод тохиргоо (машин бүрт өөр)
+# Obsidian-ы дотоод тохиргоо (машин бүрт өөр)
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json
 .obsidian/cache
@@ -6,3 +6,6 @@
 Thumbs.db
 desktop.ini
 .DS_Store
+# Obsidian плагины бинар ба нууц түлхүүр (git-т орох ёсгүй)
+.obsidian/plugins/*/main.js
+.obsidian/plugins/*/data.json
