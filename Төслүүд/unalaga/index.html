@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0B2545">
+  <title>Уналага.мн — тээвэр захиалах</title>
+
+  <!-- Фонт: Unbounded (лого + чиглэлийн нэр), Golos Text (бусад бүх текст) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ═══════════════ HEADER ═══════════════ -->
+  <header class="header">
+    <a class="logo" href="/">УНАЛАГА.МН</a>
+
+    <form class="search" role="search" action="#">
+      <input class="search-input" type="search" placeholder="Чиглэл, жолооч хайх..." aria-label="Хайх">
+    </form>
+
+    <div class="header-actions">
+      <button class="icon-btn" type="button" aria-label="Мэдэгдэл">
+        <span class="icon-btn-glyph" aria-hidden="true">🔔</span>
+        <span class="notif-count">3</span>
+      </button>
+      <span class="avatar" title="Профайл">Б</span>
+    </div>
+  </header>
+
+  <div class="layout">
+
+    <!-- ═══════════════ SIDEBAR (6 цэс) ═══════════════ -->
+    <aside class="sidebar">
+      <nav aria-label="Үндсэн цэс">
+        <ul class="nav">
+          <li><a class="nav-link is-active" href="/" aria-current="page"><span class="nav-icon" aria-hidden="true">🏠</span>Нүүр хуудас</a></li>
+          <li><a class="nav-link" href="#"><span class="nav-icon" aria-hidden="true">🚗</span>Жолооч хайх</a></li>
+          <li><a class="nav-link" href="#"><span class="nav-icon" aria-hidden="true">📝</span>Захиалга өгөх</a></li>
+          <li><a class="nav-link" href="#"><span class="nav-icon" aria-hidden="true">🗺️</span>Газрын зураг</a></li>
+          <li><a class="nav-link" href="#"><span class="nav-icon" aria-hidden="true">👤</span>Профайл</a></li>
+          <li><a class="nav-link" href="#"><span class="nav-icon" aria-hidden="true">⚙️</span>Тохиргоо</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- ═══════════════ MAIN ═══════════════ -->
+    <main class="main">
+
+      <!-- Захиалга үүсгэх зурвас (товч зөвхөн харагдана — modal 2-р алхамд) -->
+      <section class="order-prompt">
+        <p class="order-prompt-text">Өнөөдөр хаашаа явах вэ?</p>
+        <button class="btn btn-primary" type="button">+ Шинэ захиалга үүсгэх</button>
+      </section>
+
+      <h1 class="section-title">Сүүлийн зарууд</h1>
+
+      <div class="post-list">
+
+        <!-- ───── Пост 1 · Болд Дорж (жолооч, хүн тээвэр) ───── -->
+        <article class="post-card">
+          <div class="post-photo">
+            <span class="post-photo-name">Toyota Prius 2019</span>
+          </div>
+          <div class="post-body">
+            <div class="post-head">
+              <div class="post-badges">
+                <span class="badge badge-passenger">Хүн тээвэр</span>
+              </div>
+              <span class="post-time">2 минутын өмнө</span>
+            </div>
+
+            <div class="post-route">
+              <span class="route-rail" aria-hidden="true"><i class="route-dot route-dot-start"></i><i class="route-dot route-dot-end"></i></span>
+              <div class="route-cities">
+                <p class="route-city route-from">Улаанбаатар</p>
+                <p class="route-city route-to">Хөвсгөл</p>
+              </div>
+              </div>
+
+            <p class="post-when">4-р сарын 27, 08:00</p>
+
+            <div class="post-facts">
+              <span class="post-capacity">3 суудал үлдсэн</span>
+              <span class="post-price">45 000 ₮</span>
+            </div>
+
+            <div class="post-person">
+              <span class="person-avatar" aria-hidden="true">Б</span>
+              <div class="person-main">
+                <p class="person-name">Болд Дорж <span class="verified" title="Баталгаажсан">✓</span></p>
+                <p class="person-meta"><span class="rating">4.8</span> <span class="star" aria-hidden="true">★</span> · 124 аялал</p>
+              </div>
+              <button class="btn btn-contact" type="button">Холбогдох</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- ───── Пост 2 · Оюун Цэцэг (захиалагч, хүн тээвэр) ───── -->
+        <article class="post-card">
+          <div class="post-body">
+            <div class="post-head">
+              <div class="post-badges">
+                <span class="badge badge-passenger">Хүн тээвэр</span>
+                <span class="badge badge-request">Унаа хэрэгтэй</span>
+              </div>
+              <span class="post-time">15 минутын өмнө</span>
+            </div>
+
+            <div class="post-route">
+              <span class="route-rail" aria-hidden="true"><i class="route-dot route-dot-start"></i><i class="route-dot route-dot-end"></i></span>
+              <div class="route-cities">
+                <p class="route-city route-from">Улаанбаатар</p>
+                <p class="route-city route-to">Эрдэнэт</p>
+              </div>
+              </div>
+
+            <p class="post-when">4-р сарын 28</p>
+
+            <div class="post-facts">
+              <span class="post-capacity">2 хүн</span>
+            </div>
+
+            <p class="post-note">Орой хүртэл очих боломжтой. Ачаа байхгүй.</p>
+
+            <div class="post-person">
+              <span class="person-avatar" aria-hidden="true">О</span>
+              <div class="person-main">
+                <p class="person-name">Оюун Цэцэг</p>
+                <p class="person-meta">Захиалагч</p>
+              </div>
+              <button class="btn btn-contact" type="button">Холбогдох</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- ───── Пост 3 · Бат-Эрдэнэ Энхбат (жолооч, мал тээвэр) ───── -->
+        <article class="post-card">
+          <div class="post-photo">
+            <span class="post-photo-name">Hyundai Porter 2018 · малын хайрцагтай</span>
+          </div>
+          <div class="post-body">
+            <div class="post-head">
+              <div class="post-badges">
+                <span class="badge badge-livestock">Мал тээвэр</span>
+              </div>
+              <span class="post-time">3 цагийн өмнө</span>
+            </div>
+
+            <div class="post-route">
+              <span class="route-rail" aria-hidden="true"><i class="route-dot route-dot-start"></i><i class="route-dot route-dot-end"></i></span>
+              <div class="route-cities">
+                <p class="route-city route-from">Улаанбаатар</p>
+                <p class="route-city route-to">Архангай</p>
+              </div>
+              </div>
+
+            <p class="post-when">4-р сарын 28, 06:00</p>
+
+            <div class="post-facts">
+              <span class="post-capacity">5 хонь, 2 ямаа эсвэл 1 үхэр</span>
+              <span class="post-price">80 000 ₮</span>
+            </div>
+
+            <div class="post-person">
+              <span class="person-avatar" aria-hidden="true">Б</span>
+              <div class="person-main">
+                <p class="person-name">Бат-Эрдэнэ Энхбат <span class="verified" title="Баталгаажсан">✓</span></p>
+                <p class="person-meta"><span class="rating">4.9</span> <span class="star" aria-hidden="true">★</span> · 45 аялал</p>
+              </div>
+              <button class="btn btn-contact" type="button">Холбогдох</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- ───── Пост 4 · Цэрэн Дорж (захиалагч, гэр нүүлгэх) ───── -->
+        <article class="post-card">
+          <div class="post-body">
+            <div class="post-head">
+              <div class="post-badges">
+                <span class="badge badge-moving">Гэр нүүлгэх</span>
+                <span class="badge badge-request">Унаа хэрэгтэй</span>
+              </div>
+              <span class="post-time">5 цагийн өмнө</span>
+            </div>
+
+            <div class="post-route">
+              <span class="route-rail" aria-hidden="true"><i class="route-dot route-dot-start"></i><i class="route-dot route-dot-end"></i></span>
+              <div class="route-cities">
+                <p class="route-city route-from">Улаанбаатар</p>
+                <p class="route-city route-to">Сэлэнгэ, Сайхан сум</p>
+              </div>
+              </div>
+
+            <p class="post-when">5-р сарын 1</p>
+
+            <div class="post-facts">
+              <span class="post-capacity">5 ханатай гэр</span>
+            </div>
+
+            <p class="post-note">Бүтэн гэрийн материал, тавилга, эд зүйлс. Нийт 800кг орчим. 5 тонноос дээш ачааны машин хэрэгтэй.</p>
+
+            <div class="post-person">
+              <span class="person-avatar" aria-hidden="true">Ц</span>
+              <div class="person-main">
+                <p class="person-name">Цэрэн Дорж</p>
+                <p class="person-meta">Захиалагч</p>
+              </div>
+              <button class="btn btn-contact" type="button">Холбогдох</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- ───── Пост 5 · Ганбаатар Мөнх (жолооч, бараа тээвэр) ───── -->
+        <article class="post-card">
+          <div class="post-photo">
+            <span class="post-photo-name">Mitsubishi Delica 2020</span>
+          </div>
+          <div class="post-body">
+            <div class="post-head">
+              <div class="post-badges">
+                <span class="badge badge-cargo">Бараа тээвэр</span>
+              </div>
+              <span class="post-time">1 цагийн өмнө</span>
+            </div>
+
+            <div class="post-route">
+              <span class="route-rail" aria-hidden="true"><i class="route-dot route-dot-start"></i><i class="route-dot route-dot-end"></i></span>
+              <div class="route-cities">
+                <p class="route-city route-from">Улаанбаатар</p>
+                <p class="route-city route-to">Дархан</p>
+              </div>
+              </div>
+
+            <p class="post-when">4-р сарын 27, 06:30</p>
+
+            <div class="post-facts">
+              <span class="post-capacity">500 кг ачаа, 5 суудал үлдсэн</span>
+              <span class="post-price post-price-split">
+                <span>Хүн 25 000 ₮</span>
+                <span>Бараа 30 000 ₮</span>
+              </span>
+            </div>
+
+            <div class="post-person">
+              <span class="person-avatar" aria-hidden="true">Г</span>
+              <div class="person-main">
+                <p class="person-name">Ганбаатар Мөнх <span class="verified" title="Баталгаажсан">✓</span></p>
+                <p class="person-meta"><span class="rating">4.7</span> <span class="star" aria-hidden="true">★</span> · 89 аялал</p>
+              </div>
+              <button class="btn btn-contact" type="button">Холбогдох</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- ───── Пост 6 · Намсрай Жаргал (захиалагч, мал тээвэр) ───── -->
+        <article class="post-card">
+          <div class="post-body">
+            <div class="post-head">
+              <div class="post-badges">
+                <span class="badge badge-livestock">Мал тээвэр</span>
+                <span class="badge badge-request">Унаа хэрэгтэй</span>
+              </div>
+              <span class="post-time">6 цагийн өмнө</span>
+            </div>
+
+            <div class="post-route">
+              <span class="route-rail" aria-hidden="true"><i class="route-dot route-dot-start"></i><i class="route-dot route-dot-end"></i></span>
+              <div class="route-cities">
+                <p class="route-city route-from">Завхан</p>
+                <p class="route-city route-to">Улаанбаатар</p>
+              </div>
+              </div>
+
+            <p class="post-when">5-р сарын 3</p>
+
+            <div class="post-facts">
+              <span class="post-capacity">1 морь</span>
+            </div>
+
+            <p class="post-note">Унааны морь, эрүүл, тайван. Хайрцагтай машин шаардлагатай.</p>
+
+            <div class="post-person">
+              <span class="person-avatar" aria-hidden="true">Н</span>
+              <div class="person-main">
+                <p class="person-name">Намсрай Жаргал</p>
+                <p class="person-meta">Захиалагч</p>
+              </div>
+              <button class="btn btn-contact" type="button">Холбогдох</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- ───── Пост 7 · Энхбаяр Ууганбаяр (жолооч, хүн тээвэр) ───── -->
+        <article class="post-card">
+          <div class="post-photo">
+            <span class="post-photo-name">Hyundai Starex 2017</span>
+          </div>
+          <div class="post-body">
+            <div class="post-head">
+              <div class="post-badges">
+                <span class="badge badge-passenger">Хүн тээвэр</span>
+              </div>
+              <span class="post-time">8 цагийн өмнө</span>
+            </div>
+
+            <div class="post-route">
+              <span class="route-rail" aria-hidden="true"><i class="route-dot route-dot-start"></i><i class="route-dot route-dot-end"></i></span>
+              <div class="route-cities">
+                <p class="route-city route-from">Улаанбаатар</p>
+                <p class="route-city route-to">Баян-Өлгий</p>
+              </div>
+              </div>
+
+            <p class="post-when">4-р сарын 30, 07:00</p>
+
+            <div class="post-facts">
+              <span class="post-capacity">6 суудал үлдсэн</span>
+              <span class="post-price">120 000 ₮</span>
+            </div>
+
+            <div class="post-person">
+              <span class="person-avatar" aria-hidden="true">Э</span>
+              <div class="person-main">
+                <p class="person-name">Энхбаяр Ууганбаяр</p>
+                <p class="person-meta"><span class="rating">4.6</span> <span class="star" aria-hidden="true">★</span> · 31 аялал</p>
+              </div>
+              <button class="btn btn-contact" type="button">Холбогдох</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- ───── Пост 8 · Эрдэнэбат Сайнбаяр (жолооч, бараа тээвэр) ───── -->
+        <article class="post-card">
+          <div class="post-photo">
+            <span class="post-photo-name">Kia Bongo 2019</span>
+          </div>
+          <div class="post-body">
+            <div class="post-head">
+              <div class="post-badges">
+                <span class="badge badge-cargo">Бараа тээвэр</span>
+              </div>
+              <span class="post-time">12 цагийн өмнө</span>
+            </div>
+
+            <div class="post-route">
+              <span class="route-rail" aria-hidden="true"><i class="route-dot route-dot-start"></i><i class="route-dot route-dot-end"></i></span>
+              <div class="route-cities">
+                <p class="route-city route-from">Улаанбаатар</p>
+                <p class="route-city route-to">Өвөрхангай</p>
+              </div>
+              </div>
+
+            <p class="post-when">4-р сарын 29, 07:00</p>
+
+            <div class="post-facts">
+              <span class="post-capacity">1 тонн бараа, 2 суудал хоосон</span>
+              <span class="post-price post-price-split">
+                <span>Бараа 60 000 ₮</span>
+                <span>Хүн 35 000 ₮</span>
+              </span>
+            </div>
+
+            <div class="post-person">
+              <span class="person-avatar" aria-hidden="true">Э</span>
+              <div class="person-main">
+                <p class="person-name">Эрдэнэбат Сайнбаяр</p>
+                <p class="person-meta"><span class="chip-new">Шинэ гишүүн</span></p>
+              </div>
+              <button class="btn btn-contact" type="button">Холбогдох</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>

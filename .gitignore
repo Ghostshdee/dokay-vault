@@ -9,3 +9,6 @@ desktop.ini
 # Obsidian плагины бинар ба нууц түлхүүр (git-т орох ёсгүй)
 .obsidian/plugins/*/main.js
 .obsidian/plugins/*/data.json
+
+# Obsidian-ы татаж авсан загварууд (машин бүрт өөр, гуравдагч этгээдийн)
+.obsidian/themes/
