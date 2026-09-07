@@ -11,6 +11,7 @@
   --paper:      #F2F4F7;  /* хуудасны дэвсгэр */
   --surface:    #FFFFFF;  /* карт */
   --line:       #DCE2E9;  /* хүрээ, тусгаарлагч */
+  --line-2:     #C2CDDA;  /* тод хүрээ — чиглэлийн шугам, hover */
 
   /* ── Далбааны өнгө ──────────────────────────────────────── */
   --blue:       #1B4F8C;  /* үндсэн товч, холбоос, идэвхтэй цэс */
@@ -62,6 +63,7 @@
   --transition: 0.18s ease;
 
   --header-height: 60px;
+  --shell: 1160px;
 }
 
 /* ═══════════════ RESET ═══════════════ */
@@ -75,6 +77,7 @@ body {
   line-height: 1.6;
   color: var(--ink);
   background: var(--paper);
+  -webkit-font-smoothing: antialiased;
 }
 
 img { max-width: 100%; display: block; }
@@ -83,13 +86,27 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 a { color: var(--blue); text-decoration: none; }
 
-/* Гарчигт мөрийн өндөр 1.2 */
-h1, h2, h3, .route-city { line-height: 1.2; }
+/* Гарчигт мөрийн өндөр 1.2, бага зэрэг нягт tracking */
+h1, h2, h3 { line-height: 1.2; letter-spacing: -0.01em; }
+.route-city { line-height: 1.15; }
+
+/* ── Дүрсний нийтлэг загвар (inline SVG, гадны сан ашиглаагүй) ── */
+.ic {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 
 /* ═══════════════ ФОКУС (a11y — DESIGN §11) ═══════════════ */
 :focus-visible {
   outline: 2px solid var(--blue);
   outline-offset: 2px;
+  border-radius: 3px;
 }
 
 /* ═══════════════ ХӨДӨЛГӨӨН БАГАСГАХ (DESIGN §10) ═══════════════ */
@@ -121,15 +138,17 @@ h1, h2, h3, .route-city { line-height: 1.2; }
 
 /* "Холбогдох" — картын гол үйлдэл */
 .btn-contact {
-  min-height: 44px;               /* хүрэх талбай — DESIGN §8 */
-  padding: var(--space-2) var(--space-4);
+  flex-shrink: 0;
+  min-height: 44px;              /* хүрэх талбай — DESIGN §8 */
+  padding: var(--space-2) var(--space-5);
   background: var(--blue);
   color: var(--white);
   font-size: var(--text-small);
 }
 .btn-contact:hover { background: var(--blue-dark); }
 
-/* ═══════════════ HEADER (DESIGN §2) ═══════════════ */
+/* ═══════════════ HEADER (DESIGN §2) ═══════════════
+   Хатуу гүн хөх дэвсгэр + дээд талд алтан нарийн зурвас. Gradient алга. */
 .header {
   position: sticky;
   top: 0;
@@ -138,13 +157,10 @@ h1, h2, h3, .route-city { line-height: 1.2; }
   align-items: center;
   gap: var(--space-5);
   height: var(--header-height);
-  padding: 0 var(--space-5);
-  /* Хатуу гүн хөх дэвсгэр + дээд талд алтан нарийн зурвас.
-     Хуучин хөх→улаан gradient-ийг хассан. */
   background: var(--ink);
   border-top: 3px solid var(--gold);
-  /* Дэвсгэр бүтэн өргөнөөр, агуулга нь 1200px-д төвлөрнө */
-  padding-inline: max(var(--space-5), calc((100% - 1200px) / 2));
+  /* Дэвсгэр бүтэн өргөнөөр, агуулга нь shell-д төвлөрнө */
+  padding-inline: max(var(--space-5), calc((100% - var(--shell)) / 2));
 }
 
 .logo {
@@ -152,18 +168,29 @@ h1, h2, h3, .route-city { line-height: 1.2; }
   font-family: var(--font-display);
   font-weight: 700;
   font-size: var(--text-h2);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   color: var(--white);
 }
 
 .search {
+  position: relative;
   flex: 1;
-  max-width: 520px;
+  max-width: 460px;
+  display: flex;
+  align-items: center;
+}
+.search .ic {
+  position: absolute;
+  left: var(--space-3);
+  width: 18px;
+  height: 18px;
+  color: var(--ink-muted);
+  pointer-events: none;
 }
 .search-input {
   width: 100%;
   height: 40px;
-  padding: 0 var(--space-4);
+  padding: 0 var(--space-4) 0 40px;
   border: 1px solid transparent;
   border-radius: var(--radius-md);
   background: var(--white);
@@ -176,7 +203,7 @@ h1, h2, h3, .route-city { line-height: 1.2; }
 .header-actions {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
+  gap: var(--space-2);
   margin-left: auto;
 }
 
@@ -186,15 +213,17 @@ h1, h2, h3, .route-city { line-height: 1.2; }
   place-items: center;
   width: 44px;
   height: 44px;
+  color: var(--white);
   background: transparent;
   border: 0;
   border-radius: var(--radius-md);
+  transition: background var(--transition);
 }
-.icon-btn-glyph { font-size: 18px; }
+.icon-btn:hover { background: rgba(255, 255, 255, 0.1); }
 .notif-count {
   position: absolute;
-  top: 4px;
-  right: 2px;
+  top: 5px;
+  right: 4px;
   min-width: 17px;
   height: 17px;
   padding: 0 4px;
@@ -205,6 +234,7 @@ h1, h2, h3, .route-city { line-height: 1.2; }
   font-weight: 700;
   line-height: 17px;
   text-align: center;
+  box-shadow: 0 0 0 2px var(--ink);
 }
 
 .avatar {
@@ -217,13 +247,14 @@ h1, h2, h3, .route-city { line-height: 1.2; }
   color: var(--white);
   font-weight: 600;
   font-size: var(--text-small);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
 }
 
 /* ═══════════════ LAYOUT ═══════════════ */
 .layout {
   display: flex;
   align-items: flex-start;
-  max-width: 1200px;
+  max-width: var(--shell);
   margin: 0 auto;
 }
 
@@ -232,36 +263,49 @@ h1, h2, h3, .route-city { line-height: 1.2; }
   position: sticky;
   top: var(--header-height);
   flex-shrink: 0;
-  width: 240px;
+  width: 232px;
   padding: var(--space-5) var(--space-3);
   border-right: 1px solid var(--line);
 }
 
-.nav { list-style: none; }
+.nav { list-style: none; display: flex; flex-direction: column; gap: 2px; }
 .nav-link {
+  position: relative;
   display: flex;
   align-items: center;
   gap: var(--space-3);
   min-height: 44px;
   padding: var(--space-2) var(--space-3);
   border-radius: var(--radius-md);
-  color: var(--ink);
+  color: var(--ink-muted);
   font-weight: 500;
   transition: background var(--transition), color var(--transition);
 }
-.nav-link:hover { background: var(--blue-wash); }
+.nav-link .ic { color: var(--ink-muted); transition: color var(--transition); }
+.nav-link:hover { background: var(--blue-wash); color: var(--ink); }
+.nav-link:hover .ic { color: var(--ink); }
 .nav-link.is-active {
   background: var(--blue-wash);
   color: var(--blue);
   font-weight: 600;
 }
-.nav-icon { font-size: 18px; width: 22px; text-align: center; }
+.nav-link.is-active .ic { color: var(--blue); }
+.nav-link.is-active::before {   /* зүүн талын идэвхтэй зураас */
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--blue);
+}
 
 /* ── MAIN ───────────────────────────────────────────────── */
 .main {
   flex: 1;
   min-width: 0;
-  padding: var(--space-6);
+  padding: var(--space-6) var(--space-5) var(--space-6) var(--space-6);
 }
 
 /* Нэг баганат жагсаалт — замын хуудсыг дээрээс доош гүйлгэн уншина
@@ -269,7 +313,7 @@ h1, h2, h3, .route-city { line-height: 1.2; }
 .order-prompt,
 .section-title,
 .post-list {
-  max-width: 600px;
+  max-width: 580px;
   margin-inline: auto;
 }
 
@@ -280,7 +324,7 @@ h1, h2, h3, .route-city { line-height: 1.2; }
   justify-content: space-between;
   gap: var(--space-4);
   flex-wrap: wrap;
-  padding: var(--space-5);
+  padding: var(--space-4) var(--space-5);
   margin-bottom: var(--space-6);
   background: var(--surface);
   border: 1px solid var(--line);
@@ -294,7 +338,7 @@ h1, h2, h3, .route-city { line-height: 1.2; }
 .section-title {
   font-size: var(--text-h1);
   font-weight: 700;
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-4);
 }
 
 /* ═══════════════ ПОСТЫН ЖАГСААЛТ ═══════════════ */
@@ -315,24 +359,39 @@ h1, h2, h3, .route-city { line-height: 1.2; }
   transition: border-color var(--transition);
 }
 /* Hover дээр translateY биш — зөвхөн хүрээний өнгө (DESIGN §10) */
-.post-card:hover { border-color: var(--blue); }
+.post-card:hover { border-color: var(--line-2); }
 
 /* ── Машины хэсэг ──────────────────────────────────────────
-   Жолооч бодит зургаа оруулах хүртэл брэндийн дэвсгэр дээр машины
-   нэр харагдана. Хурдан ачаалагдана (CLAUDE.md §2: удаан интернэт).
+   Жолооч бодит зургаа оруулах хүртэл гүн хөх дэвсгэр дээр машины нэр +
+   тээврийн төрлийн бүдэг тэмдэг. Хурдан ачаалагдана (CLAUDE.md §2).
    Бодит зураг ирэхэд .post-photo дотор <img> нэмнэ. */
 .post-photo {
+  position: relative;
   display: flex;
   align-items: flex-end;
-  min-height: 76px;
+  min-height: 82px;
   padding: var(--space-4);
-  background: linear-gradient(135deg, var(--blue), var(--ink));
-  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+  background: var(--ink);
+  border-bottom: 2px solid var(--gold);   /* header-ийн алтан зурваст холбоотой */
+}
+.post-photo-mark {                          /* бүдэг том тэмдэг, баруун талд */
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 92px;
+  height: 92px;
+  color: var(--white);
+  opacity: 0.12;
+  stroke-width: 1.4;
 }
 .post-photo-name {
+  position: relative;
   color: var(--white);
   font-weight: 600;
   font-size: var(--text-small);
+  letter-spacing: 0.01em;
 }
 
 /* ── Картын их бие ────────────────────────────────────────── */
@@ -359,6 +418,8 @@ h1, h2, h3, .route-city { line-height: 1.2; }
   flex-shrink: 0;
   font-size: var(--text-tiny);
   color: var(--ink-muted);
+  white-space: nowrap;
+  padding-top: 2px;
 }
 
 /* ── Badge — хүрээтэй чип (DESIGN §5) ─────────────────────── */
@@ -366,9 +427,10 @@ h1, h2, h3, .route-city { line-height: 1.2; }
   border: 1px solid currentColor;
   background: transparent;
   border-radius: var(--radius-sm);
-  padding: 3px 10px;
+  padding: 3px 9px;
   font-size: var(--text-tiny);
   font-weight: 500;
+  letter-spacing: 0.01em;
   white-space: nowrap;
 }
 .badge-passenger { color: var(--blue); }
@@ -388,9 +450,9 @@ h1, h2, h3, .route-city { line-height: 1.2; }
    шугам, доод цэг алтан. Өөр газар давтаж хэрэглэхгүй (DESIGN §1). */
 .post-route {
   display: grid;
-  grid-template-columns: 14px 1fr;
+  grid-template-columns: 16px 1fr;
   gap: var(--space-3);
-  margin: var(--space-2) 0;
+  margin: var(--space-3) 0 var(--space-4);
 }
 .route-rail { position: relative; }
 .route-rail::before {           /* босоо тасархай шугам — цэгээс цэг хүртэл */
@@ -398,9 +460,9 @@ h1, h2, h3, .route-city { line-height: 1.2; }
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 13px;
-  bottom: 13px;
-  border-left: 2px dashed var(--line);
+  top: 16px;
+  bottom: 16px;
+  border-left: 2px dashed var(--line-2);
 }
 .route-dot {
   position: absolute;
@@ -412,16 +474,21 @@ h1, h2, h3, .route-city { line-height: 1.2; }
   background: var(--surface);
   border: 2px solid var(--ink-muted);
 }
-.route-dot-start { top: 7px; }
-.route-dot-end {                /* доод цэг — алтан */
-  bottom: 7px;
+.route-dot-start {
+  top: 6px;
+  box-shadow: 0 0 0 3px var(--blue-wash);
+}
+.route-dot-end {                /* очих цэг — алтан, зөөлөн туяатай */
+  bottom: 6px;
   background: var(--gold);
   border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-wash);
 }
 .route-city {
   font-family: var(--font-display);
   font-weight: 600;
   font-size: var(--text-route);
+  letter-spacing: -0.01em;
   text-transform: uppercase;
   color: var(--ink);
   word-break: break-word;
@@ -436,7 +503,7 @@ h1, h2, h3, .route-city { line-height: 1.2; }
 
 .post-facts {
   display: flex;
-  align-items: flex-start;
+  align-items: baseline;
   justify-content: space-between;
   gap: var(--space-3);
 }
@@ -446,8 +513,9 @@ h1, h2, h3, .route-city { line-height: 1.2; }
 }
 .post-price {
   flex-shrink: 0;
-  font-size: var(--text-h2);
+  font-size: var(--text-h1);
   font-weight: 700;
+  letter-spacing: -0.01em;
   color: var(--ink);
   text-align: right;
 }
@@ -458,7 +526,7 @@ h1, h2, h3, .route-city { line-height: 1.2; }
   align-items: flex-end;
   font-size: var(--text-small);
   font-weight: 600;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
 .post-note {
@@ -493,13 +561,24 @@ h1, h2, h3, .route-city { line-height: 1.2; }
   min-width: 0;
 }
 .person-name {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
   font-weight: 600;
   font-size: var(--text-body);
 }
+/* ✓ баталгаа — жижиг алтан дугуй, цагаан чагт (DESIGN §6) */
 .verified {
-  color: var(--gold);
-  font-weight: 700;
+  display: inline-grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--white);
+  flex-shrink: 0;
 }
+.verified svg { width: 10px; height: 10px; }
 .person-meta {
   font-size: var(--text-small);
   color: var(--ink-muted);
@@ -521,7 +600,6 @@ h1, h2, h3, .route-city { line-height: 1.2; }
   font-size: var(--text-tiny);
   font-weight: 500;
 }
-.btn-contact { flex-shrink: 0; }
 
 /* ═══════════════ МОБАЙЛ — түр зуурын (доод navbar нь 3-р алхам) ═══════════════ */
 @media (max-width: 640px) {
@@ -529,7 +607,7 @@ h1, h2, h3, .route-city { line-height: 1.2; }
 
   .header {
     gap: var(--space-3);
-    padding: 0 var(--space-3);
+    padding-inline: var(--space-3);
   }
   .search { display: none; }   /* хайлтын дэлгэц 3-р алхамд */
 
