@@ -8,6 +8,9 @@
   /* ── Суурь өнгө ─────────────────────────────────────────── */
   --ink:        #0B2545;  /* гүн хөх — гарчиг, гол текст */
   --ink-muted:  #5A6B7F;  /* дэд текст */
+  --ink-lift:   #123A6B;  /* машины панелийн гэрэлтсэн тал */
+  --ink-glow:   #1C4B86;  /* машины панелийн радиаль гэрэл */
+  --scrim:      rgba(6, 21, 42, 0.74);  /* зураг/панел дээрх бараан хөшиг */
   --paper:      #F2F4F7;  /* хуудасны дэвсгэр */
   --surface:    #FFFFFF;  /* карт */
   --line:       #DCE2E9;  /* хүрээ, тусгаарлагч */
@@ -361,37 +364,56 @@ h1, h2, h3 { line-height: 1.2; letter-spacing: -0.01em; }
 /* Hover дээр translateY биш — зөвхөн хүрээний өнгө (DESIGN §10) */
 .post-card:hover { border-color: var(--line-2); }
 
-/* ── Машины хэсэг ──────────────────────────────────────────
-   Жолооч бодит зургаа оруулах хүртэл гүн хөх дэвсгэр дээр машины нэр +
-   тээврийн төрлийн бүдэг тэмдэг. Хурдан ачаалагдана (CLAUDE.md §2).
-   Бодит зураг ирэхэд .post-photo дотор <img> нэмнэ. */
+/* ── Машины панел (DESIGN §1: 16:9 зургийн талбай) ──────────
+   Жолооч өөрийн машины зургаа оруулах хүртэл (CLAUDE.md §5 vehicle_photos)
+   брэндийн гүн хөх панел дээр машины дүрс + нэр. Ямар ч файл татдаггүй тул
+   2G/3G-д ч агшин зуур гарна (CLAUDE.md §2). DESIGN.md §1 диаграмын дагуу
+   нэр баруун доор, доод талд алтан зураас (header-ийн зурваст холбогдоно). */
 .post-photo {
   position: relative;
   display: flex;
   align-items: flex-end;
-  min-height: 82px;
+  justify-content: flex-end;
+  aspect-ratio: 16 / 9;
   padding: var(--space-4);
   overflow: hidden;
-  background: var(--ink);
-  border-bottom: 2px solid var(--gold);   /* header-ийн алтан зурваст холбоотой */
+  border-bottom: 3px solid var(--gold);
+  background:
+    var(--veh) center 78% / min(74%, 300px) no-repeat,
+    radial-gradient(130% 96% at 14% 4%, var(--ink-glow) 0%, transparent 52%),
+    linear-gradient(116deg, var(--ink) 0%, var(--ink-lift) 100%);
 }
-.post-photo-mark {                          /* бүдэг том тэмдэг, баруун талд */
+/* Тээврийн хэрэгслийн дүрс — усан тэмдэг. Тодорхой файлгүй, data-URI. */
+.post-photo         { --veh: none; }
+.post-photo.veh-sedan  { --veh: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 108'%3E%3Cg fill='%23ffffff' fill-opacity='0.15'%3E%3Cpath d='M8 74c-1-8 4-13 12-14l38-22c8-9 19-13 31-13h72c15 0 29 6 39 17l30 16c11 2 16 6 16 15v6h-28a20 20 0 0 0-40 0H82a20 20 0 0 0-40 0H16c-5 0-8-3-8-7z'/%3E%3Ccircle cx='60' cy='82' r='14'/%3E%3Ccircle cx='196' cy='82' r='14'/%3E%3C/g%3E%3C/svg%3E"); }
+.post-photo.veh-van    { --veh: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 108'%3E%3Cg fill='%23ffffff' fill-opacity='0.15'%3E%3Cpath d='M14 78V36c0-7 5-12 12-12h132c9 0 14 3 19 11l30 40c2 3 3 6 3 10v1h-16a20 20 0 0 0-40 0H74a20 20 0 0 0-40 0H20c-4 0-6-2-6-6z'/%3E%3Ccircle cx='54' cy='86' r='14'/%3E%3Ccircle cx='198' cy='86' r='14'/%3E%3C/g%3E%3C/svg%3E"); }
+.post-photo.veh-pickup { --veh: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 108'%3E%3Cg fill='%23ffffff' fill-opacity='0.15'%3E%3Cpath d='M12 80V52c0-6 4-10 10-10h6l16-18c3-4 8-6 13-6h28c7 0 12 5 12 12v18h145c3 0 5 2 5 5v27h-14a20 20 0 0 0-40 0H78a20 20 0 0 0-40 0H18c-4 0-6-2-6-6z'/%3E%3Ccircle cx='58' cy='86' r='14'/%3E%3Ccircle cx='196' cy='86' r='14'/%3E%3C/g%3E%3C/svg%3E"); }
+/* Доод хэсэгт бараан хөшиг — цагаан нэр уншигдана */
+.post-photo::after {
+  content: "";
   position: absolute;
-  right: -8px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 92px;
-  height: 92px;
-  color: var(--white);
-  opacity: 0.12;
-  stroke-width: 1.4;
+  inset: auto 0 0 0;
+  height: 62%;
+  background: linear-gradient(180deg, transparent, var(--scrim));
 }
+/* Жолоочийн бодит зураг ирэхэд .post-photo дотор <img> нэмнэ */
+.post-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.post-photo.no-image img { display: none; }   /* onerror — панел үлдэнэ */
 .post-photo-name {
   position: relative;
+  z-index: 1;
   color: var(--white);
   font-weight: 600;
   font-size: var(--text-small);
   letter-spacing: 0.01em;
+  text-align: right;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
 }
 
 /* ── Картын их бие ────────────────────────────────────────── */
@@ -488,12 +510,21 @@ h1, h2, h3 { line-height: 1.2; letter-spacing: -0.01em; }
   font-family: var(--font-display);
   font-weight: 600;
   font-size: var(--text-route);
+  line-height: 1.1;
   letter-spacing: -0.01em;
   text-transform: uppercase;
   color: var(--ink);
   word-break: break-word;
 }
-.route-from { margin-bottom: var(--space-3); }
+.route-from { margin-bottom: var(--space-1); }
+
+/* Хоёр хотын хооронд — ойролцоо зай ба хугацаа (DESIGN §1) */
+.route-gap {
+  margin: var(--space-1) 0 var(--space-2);
+  font-size: var(--text-tiny);
+  font-weight: 500;
+  color: var(--ink-muted);
+}
 
 /* ── Хэзээ / багтаамж / үнэ ──────────────────────────────── */
 .post-when {
